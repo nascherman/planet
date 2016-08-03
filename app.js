@@ -15,7 +15,10 @@ function createApp (opt = {}) {
 
   // Our WebGL renderer with alpha and device-scaled
   const renderer = new THREE.WebGLRenderer(assign({
-    antialias: true // default enabled
+    antialias: true, // default enabled
+    alpha: true,
+    gammaInput: true,
+    gammaOutput: true
   }, opt));
   renderer.setPixelRatio(dpr);
 
@@ -24,7 +27,7 @@ function createApp (opt = {}) {
   document.body.appendChild(canvas);
 
   // 3D camera looking
-  const camera = new THREE.PerspectiveCamera(60, 1, 0.01, 10000);
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.01, 1000000);
   const target = new THREE.Vector3();
 
   // 3D scene
