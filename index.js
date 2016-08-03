@@ -22,7 +22,7 @@ const {
   scene,
   updateControls
 } = createApp();
-renderer.setClearColor(0xffffff);
+
 camera.add(light);
 camera.add(spotLight)
 const planeSize = 100;
@@ -30,30 +30,21 @@ const planeSegments = 30;
 let geometry = new THREE.SphereGeometry(planeSize, planeSegments, planeSegments);
 // geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
 // Create our vertex/fragment shaders
-// const material = new THREE.RawShaderMaterial({
-//   vertexShader: glslify(path.join(__dirname, 'shader.vert')),
-//   fragmentShader: glslify(path.join(__dirname, 'shader.frag')),
-//   transparent: true,
-//   side: THREE.DoubleSide,
-//   wireframe: true,
-//   uniforms: {
-//     opacity: { type: 'f', value: 1.0 },
-//     time: { type: 'f', value: 0 },
-//     planeSize: { type: 'f', value: planeSize }
-//   }
-// });
-load('world-map.svg', function(err, svg) {
-  svgToImage(svg.outerHTML, (err, image) => {
-    var texture = new THREE.Texture(image);
-    texture.minFilter = THREE.NearestFilter;
-    texture.magFilter = THREE.LinearFilter;
-    texture.generateMipmaps = true;
-    texture.anisotropy = renderer.getMaxAnisotropy();
-    texture.needsUpdate = true;
-    const material = new THREE.MeshBasicMaterial({
-      map: texture,
-      transparent: false,
-      side: THREE.DoubleSide,
+
+  //svgToImage(svg.outerHTML, (err, image) => {
+    //var texture = new THREE.Texture(image);
+    //texture.minFilter = THREE.NearestFilter;
+    //texture.magFilter = THREE.LinearFilter;
+    //texture.generateMipmaps = true;
+    //texture.anisotropy = renderer.getMaxAnisotropy();
+    //texture.needsUpdate = true;
+    const material = new THREE.ShaderMaterial({
+      vertexShader: glslify(path.join(__dirname, 'shader.vert')),
+      fragmentShader: glslify(path.join(__dirname, 'shader.frag')),
+      uniforms: {
+        texture: {type: 't', value: THREE.ImageUtils.loadTexture('./sun.jpg') },
+        time: { type: 'f', value: 0 }
+      },
       wireframe: false
     });
     // Setup our mesh
@@ -62,8 +53,9 @@ load('world-map.svg', function(err, svg) {
     window.scene = scene;
     // update time in seconds
     createLoop((dt) => {
+      material.uniforms.time.value += dt / 1000;
       updateControls();
       renderer.render(scene, camera);
     }).start();
-  });
-});
+  //});
+
