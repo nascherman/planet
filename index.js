@@ -10,8 +10,6 @@ var textureFlare3 = textureLoader.load( "textures/lensflare3.png" );
 var textureSun = textureLoader.load('./textures/sun.jpg');
 var textureWhite = textureLoader.load('./textures/white.jpg');
 
-
-
 const stellarMaterial = new THREE.ShaderMaterial({
   vertexShader: glslify(path.join(__dirname, 'shader.vert')),
   fragmentShader: glslify(path.join(__dirname, 'shader.frag')),
@@ -19,7 +17,8 @@ const stellarMaterial = new THREE.ShaderMaterial({
     texture: {type: 't', value: textureSun },
     time: { type: 'f', value: 0 },
     tGlow: { type: "t", value: textureSun }
-  }
+  },
+  depthWrite: false
 });
 const heatMaterial = new THREE.ShaderMaterial({
   vertexShader: glslify(path.join(__dirname, 'glow.vert')),
@@ -30,7 +29,8 @@ const heatMaterial = new THREE.ShaderMaterial({
     texture: {type: 't', value: textureWhite }
   },
   wireframe: false,
-  transparent: true
+  transparent: true,
+  depthWrite: false
 });
 
 
@@ -48,9 +48,7 @@ scene.fog = new THREE.Fog( 0x000000, 3500, 15000 );
 scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
 renderer.setClearColor( scene.fog.color );
 
-addLight( 0.55, 0.9, 0.5, 5000, 0, -1000 );
-addLight( 0.08, 0.8, 0.5,    0, 0, -1000 );
-addLight( 0.995, 0.5, 0.9, 5000, 5000, -1000 );
+addLight( 0.55, 0.9, 0.5, 0, 0, 0 );
 
 const planeSize = 210;
 const planeSegments = 65;
@@ -60,6 +58,7 @@ var skyGeo = new THREE.SphereGeometry( 1000, 32, 32 );
 // Setup our mesh
 const mesh = new THREE.Mesh(starGeometry, stellarMaterial);
 const mesh2 = new THREE.Mesh(heatGeometry, heatMaterial);
+
 scene.add(mesh);
 scene.add(mesh2);
 window.scene = scene;
@@ -78,7 +77,7 @@ function addLight( h, s, l, x, y, z ) {
   scene.add( light );
   var flareColor = new THREE.Color( 0xffffff );
   flareColor.setHSL( h, s, l + 0.5 );
-  var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
+  var lensFlare = new THREE.LensFlare( textureFlare0, 1500, 0.0, THREE.AdditiveBlending, flareColor );
   lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
   lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
   lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
