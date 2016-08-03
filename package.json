@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "budo index.js:bundle.js --live --debug -- -t glslify"
+    "demo": "budo index.js:bundle.js --live --debug -- -t glslify",
+    "build": "browserify index.js -t glslify > bundle.js"
   },
   "keywords": [
     "template",
