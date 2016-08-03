@@ -35,7 +35,7 @@ function createApp (opt = {}) {
     canvas,
     theta: 40 * Math.PI / 180,
     phi: -60 * Math.PI / 180,
-    distance: 200
+    distance: 800
   }, opt));
 
   // Update frame size

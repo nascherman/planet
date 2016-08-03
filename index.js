@@ -25,25 +25,17 @@ const {
 
 camera.add(light);
 camera.add(spotLight)
-const planeSize = 100;
-const planeSegments = 30;
+const planeSize = 210;
+const planeSegments = 65;
 let geometry = new THREE.SphereGeometry(planeSize, planeSegments, planeSegments);
-// geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
-// Create our vertex/fragment shaders
 
-  //svgToImage(svg.outerHTML, (err, image) => {
-    //var texture = new THREE.Texture(image);
-    //texture.minFilter = THREE.NearestFilter;
-    //texture.magFilter = THREE.LinearFilter;
-    //texture.generateMipmaps = true;
-    //texture.anisotropy = renderer.getMaxAnisotropy();
-    //texture.needsUpdate = true;
     const material = new THREE.ShaderMaterial({
       vertexShader: glslify(path.join(__dirname, 'shader.vert')),
       fragmentShader: glslify(path.join(__dirname, 'shader.frag')),
       uniforms: {
         texture: {type: 't', value: THREE.ImageUtils.loadTexture('./sun.jpg') },
-        time: { type: 'f', value: 0 }
+        time: { type: 'f', value: 0 },
+        tGlow: { type: "t", value: THREE.ImageUtils.loadTexture('./sun.jpg') }
       },
       wireframe: false
     });
