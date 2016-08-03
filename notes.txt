@@ -1,0 +1,14 @@
+- glslify
+- noise functions
+- noise + glslify (pragma require) - http://glslb.in/s/7e7ed550
+- glslify transform in budo
+- path.join for shaders
+- require('glslify') instead of import
+- plane X rotation matrix
+- 50 plane segments
+- noise.glsl / shader.vert / function to 0.0 - 1.0
+- pragma: export in noise.glsl
+- large detail height offset
+- fine detail height offset
+- flatten outside center
+- joy division
