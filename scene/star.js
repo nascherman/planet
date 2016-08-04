@@ -33,7 +33,7 @@ module.exports = function (scene) {
     alphaTest: 1.0
   });
   
-  addLight( 0.55, 0.9, 0.5, 0, 0, 0 );
+  addLight(0.77,0.77,0.77, 0, 0, 0 );
   
   const planeSize = 300;
   const planeSegments = 300;
