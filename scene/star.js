@@ -9,8 +9,8 @@ var textureWhite = textureLoader.load('../textures/white.jpg');
 
 module.exports = function (scene) {
   const stellarMaterial = new THREE.ShaderMaterial({
-    vertexShader: glslify(path.join(__dirname, '../shaders/shader.vert')),
-    fragmentShader: glslify(path.join(__dirname, '../shaders/shader.frag')),
+    vertexShader: glslify(path.join(__dirname, '../shaders/sun.vert')),
+    fragmentShader: glslify(path.join(__dirname, '../shaders/sun.frag')),
     uniforms: {
       texture: {type: 't', value: textureSun },
       time: { type: 'f', value: 0 },
@@ -32,10 +32,6 @@ module.exports = function (scene) {
     depthWrite: false,
     alphaTest: 1.0
   });
-  
-  let ambientLight = new THREE.AmbientLight(0xffffff);
-  let light = new THREE.PointLight( 0xffffff );
-  let spotLight = new THREE.SpotLight( 0xffffff );
   
   addLight( 0.55, 0.9, 0.5, 0, 0, 0 );
   
