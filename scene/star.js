@@ -38,7 +38,7 @@ module.exports = function (scene) {
   const planeSize = 300;
   const planeSegments = 300;
   let starGeometry = new THREE.SphereGeometry(planeSize, planeSegments, planeSegments);
-  let heatGeometry = new THREE.SphereGeometry(planeSize * 1.001, planeSegments, planeSegments);
+  let heatGeometry = new THREE.SphereGeometry(planeSize * 1.03, planeSegments, planeSegments);
   // Setup our mesh
   const mesh1 = new THREE.Mesh(starGeometry, stellarMaterial);
   const mesh2 = new THREE.Mesh(heatGeometry, heatMaterial);
