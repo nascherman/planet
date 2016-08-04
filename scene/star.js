@@ -44,7 +44,7 @@ module.exports = function (scene) {
   const mesh2 = new THREE.Mesh(heatGeometry, heatMaterial);
   scene.add(mesh1);
   scene.add(mesh2);
-
+  mesh2.position.y -= 10;
   return {
     mesh1: mesh1,
     mesh2: mesh2,

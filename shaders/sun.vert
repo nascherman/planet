@@ -10,7 +10,7 @@ float height(vec3 position) {
   h += computeNoise(vec2(position.xz * 0.5));
   h += 1.0 * computeNoise(vec3(position.xz + (time * 0.01), 0.0) * 20.0);
   float distToCenter = length(position.x) / 200.00;
-  h *= smoothstep(0.99, 0.0, distToCenter);
+  h *= smoothstep(2.0, 1.0, distToCenter);
   return h * 10.0;
 }
 
