@@ -1,16 +1,23 @@
+var ASSET_FOLDER = global.ASSET_FOLDER;
 var glslify = require('glslify');
 var path = require('path');
 var textureLoader = new THREE.TextureLoader();
-var textureFlare0 = textureLoader.load( "../textures/lensflare0.png" );
-var textureFlare2 = textureLoader.load( "../textures/lensflare2.png" );
-var textureFlare3 = textureLoader.load( "../textures/lensflare3.png" );
-var textureSun = textureLoader.load('../textures/sun.jpg');
-var textureWhite = textureLoader.load('../textures/white.jpg');
+var textureFlare0 = textureLoader.load(ASSET_FOLDER + "textures/lensflare0.png" );
+var textureFlare2 = textureLoader.load(ASSET_FOLDER + "textures/lensflare2.png" );
+var textureFlare3 = textureLoader.load(ASSET_FOLDER + "textures/lensflare3.png" );
+var textureSun = textureLoader.load(ASSET_FOLDER + 'textures/sun.jpg');
+var textureWhite = textureLoader.load(ASSET_FOLDER + 'textures/white.jpg');
+
+var vertSun = process.env.NODE_ENV !== 'production' ? glslify('../shaders/sun.vert') : glslify('./shaders/sun.vert')  ;
+var fragSun = process.env.NODE_ENV !== 'production' ? glslify('../shaders/sun.frag') : glslify('./shaders/sun.frag');
+var vertGlow = process.env.NODE_ENV !== 'production' ? glslify('../shaders/glow.vert') : glslify('./shaders/glow.vert');
+var fragGlow = process.env.NODE_ENV !== 'production' ? glslify('../shaders/glow.frag') : glslify('./shaders/glow.frag');
+
 
 module.exports = function (scene) {
   const stellarMaterial = new THREE.ShaderMaterial({
-    vertexShader: glslify(path.join(__dirname, '../shaders/sun.vert')),
-    fragmentShader: glslify(path.join(__dirname, '../shaders/sun.frag')),
+    vertexShader: vert,
+    fragmentShader: frag,
     uniforms: {
       texture: {type: 't', value: textureSun },
       time: { type: 'f', value: 0 },
@@ -21,8 +28,8 @@ module.exports = function (scene) {
     alphaTest: 1.00
   });
   const heatMaterial = new THREE.ShaderMaterial({
-    vertexShader: glslify(path.join(__dirname, '../shaders/glow.vert')),
-    fragmentShader: glslify(path.join(__dirname, '../shaders/glow.frag')),
+    vertexShader: glslify(vertGlow),
+    fragmentShader: glslify(fragGlow),
     uniforms: {
       opacity: { type: 'f', value: 0.1 },
       time: { type: 'f', value: 0 },

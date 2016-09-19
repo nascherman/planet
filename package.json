@@ -4,11 +4,10 @@
   "description": "a demo of stars",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "budo index.js:bundle.js --live --debug -- -t glslify",
-    "build": "browserify index.js -t glslify > static/bundle.js",
-    "postinstall": "npm run build",
-    "heroku-start": "node ./server"
+    "test": "echo \"Error: no test specified\" && ext 1",
+    "demo": "budo index.js:bundle.js --live --debug -- -t glslify ",
+    "build": "export ASSET_FOLDER='/planets/' && browserify index.js -t glslify -t [envify --NODE_ENV='production'] > static/bundle.js",
+    "postinstall": "npm run build"
   },
   "keywords": [
     "template",
@@ -21,6 +20,7 @@
   "dependencies": {
     "browserify": "^13.1.0",
     "budo": "^8.3.0",
+    "envify": "^3.4.1",
     "express": "^4.14.0",
     "glsl-noise": "0.0.0",
     "glslify": "^5.1.0",
@@ -35,4 +35,5 @@
       "glslify"
     ]
   }
+
 }

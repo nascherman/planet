@@ -1,3 +1,5 @@
+ASSET_FOLDER = process.env.NODE_ENV !== 'production' ? '/' : '/planets/';
+
 global.THREE = require('three');
 const createApp = require('./app');
 const createLoop = require('raf-loop');

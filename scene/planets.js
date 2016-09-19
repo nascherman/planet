@@ -1,7 +1,6 @@
-var glslify = require('glslify');
 var path = require('path');
 var textureLoader = new THREE.TextureLoader();
-textureMoon = textureLoader.load(path.join(__dirname, '../textures/moon.jpg'));
+textureMoon = textureLoader.load(ASSET_FOLDER + 'textures/moon.jpg');
 const moonMaterial = new THREE.MeshPhongMaterial({
   map: textureMoon,
   bumpMap: textureMoon,
