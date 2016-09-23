@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && ext 1",
-    "demo": "budo index.js:bundle.js --live --debug -- -t glslify ",
-    "build": "export ASSET_FOLDER='/planets/' && browserify index.js -t glslify -t [envify --NODE_ENV='production'] > static/bundle.js",
+    "demo": "budo index.js:bundle.js --dir static --live --debug -- -t glslify ",
+    "build": "browserify index.js -t glslify -t [envify --NODE_ENV='production'] > static/bundle.js",
     "postinstall": "npm run build"
   },
   "keywords": [
@@ -34,6 +34,8 @@
     "transform": [
       "glslify"
     ]
+  },
+  "devDependencies": {
+    "uglifyjs": "^2.4.10"
   }
-
 }

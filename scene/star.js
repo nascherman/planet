@@ -1,4 +1,5 @@
 var ASSET_FOLDER = global.ASSET_FOLDER;
+var STATIC_ASSET_FOLDER = '../static/';
 var glslify = require('glslify');
 var path = require('path');
 var textureLoader = new THREE.TextureLoader();
@@ -8,16 +9,15 @@ var textureFlare3 = textureLoader.load(ASSET_FOLDER + "textures/lensflare3.png" 
 var textureSun = textureLoader.load(ASSET_FOLDER + 'textures/sun.jpg');
 var textureWhite = textureLoader.load(ASSET_FOLDER + 'textures/white.jpg');
 
-var vertSun = process.env.NODE_ENV !== 'production' ? glslify('../shaders/sun.vert') : glslify('./shaders/sun.vert')  ;
-var fragSun = process.env.NODE_ENV !== 'production' ? glslify('../shaders/sun.frag') : glslify('./shaders/sun.frag');
-var vertGlow = process.env.NODE_ENV !== 'production' ? glslify('../shaders/glow.vert') : glslify('./shaders/glow.vert');
-var fragGlow = process.env.NODE_ENV !== 'production' ? glslify('../shaders/glow.frag') : glslify('./shaders/glow.frag');
-
+var vertSun = glslify('./shaders/sun.vert');
+var fragSun =  glslify('./shaders/sun.frag');
+var vertGlow = glslify('./shaders/glow.vert');
+var fragGlow = glslify('./shaders/glow.frag');
 
 module.exports = function (scene) {
   const stellarMaterial = new THREE.ShaderMaterial({
-    vertexShader: vert,
-    fragmentShader: frag,
+    vertexShader: vertSun,
+    fragmentShader: fragSun,
     uniforms: {
       texture: {type: 't', value: textureSun },
       time: { type: 'f', value: 0 },
@@ -28,8 +28,8 @@ module.exports = function (scene) {
     alphaTest: 1.00
   });
   const heatMaterial = new THREE.ShaderMaterial({
-    vertexShader: glslify(vertGlow),
-    fragmentShader: glslify(fragGlow),
+    vertexShader: vertGlow,
+    fragmentShader: fragGlow,
     uniforms: {
       opacity: { type: 'f', value: 0.1 },
       time: { type: 'f', value: 0 },
